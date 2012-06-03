@@ -28,8 +28,6 @@ public class Kinematics {
 	public void reset() {
 		Motor.A.rotateTo(0);
 		Motor.B.rotateTo(0);
-		Motor.A.resetTachoCount();
-		Motor.B.resetTachoCount();
 	}
 	
 	/**
