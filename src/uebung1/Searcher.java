@@ -8,6 +8,14 @@ import lejos.nxt.Motor;
 import lejos.nxt.SensorPort;
 
 public class Searcher {
+	
+	static final int SCAN_A_FROM = -20;
+	static final int SCAN_A_TO = 20;
+	static final int SCAN_A_STEP = 5;
+	static final int SCAN_B_FROM = Kinematics.MIN_B;
+	static final int SCAN_B_TO = Kinematics.MAX_B;
+	
+	
 	LightSensor sensor = new LightSensor(SensorPort.S1);
 	Kinematics kinematics = new Kinematics();
 	
@@ -16,6 +24,7 @@ public class Searcher {
 	 * @throws BadPositionException
 	 */
 	public void search() throws BadPositionException {
+		
 		int max = 0;
 		int aMax = 0;
 		int bMax = 0;
@@ -36,19 +45,18 @@ public class Searcher {
 		int b4A;
 		int b4B;
 		
-		kinematics.rotateTo(-20,-Kinematics.maxB, false);
+		kinematics.rotateTo(-20,-Kinematics.MAX_B, false);
 
 		currValue = sensor.readValue();
 		currA = kinematics.getPositionA();
 		currB = kinematics.getPositionB();
 		
 		boolean switcher = true;
-		//for (int i = -Kinematics.maxA; i <= Kinematics.maxA; i=i+5){
-		for (int i = -20; i <= 20; i=i+5){
+		for (int i = SCAN_A_FROM; i <= SCAN_A_TO; i += SCAN_A_STEP){
 			kinematics.rotateATo(i, false);
 
-			if (switcher) kinematics.rotateBTo(Kinematics.maxB,true);
-			else kinematics.rotateBTo(-Kinematics.maxB,true);
+			if (switcher) kinematics.rotateBTo(Kinematics.MAX_B,true);
+			else kinematics.rotateBTo(Kinematics.MIN_B,true);
 			
 			while(Motor.B.isMoving()) {
 				b4Value = currValue;
