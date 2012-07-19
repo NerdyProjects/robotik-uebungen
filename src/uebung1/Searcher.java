@@ -107,16 +107,18 @@ public class Searcher {
 		matrix[3][0] =   0;
 		matrix[3][1] =   0;
 		matrix[3][2] =   0;
-		  matrix[3][3] =   1;
+		matrix[3][3] =   1;
 
+		double bw1 = Math.toDegrees(Math.atan2((matrix[2][3]-l1)/l2,-matrix[1][2]));
+		double bw2 = Math.toDegrees(Math.atan2(matrix[1][3]/(l2*Math.cos(w2)),matrix[0][3]/(l2*Math.cos(w2))));
+		
+		
 		System.out.println("X-Matrix:"+ matrix[0][3]);
 		System.out.println("Y-Matrix:"+ matrix[1][3]);
 		System.out.println("Z-Matrix:"+ matrix[2][3]);
 		Button.waitForAnyPress();
-		System.out.println("R1:"+ Math.toDegrees(w1) + "==" + 
-		Math.toDegrees(Math.acos(matrix[1][2])));
-		System.out.println("R2:"+ Math.toDegrees(w2) + "==" + 
-		Math.toDegrees(Math.asin((matrix[2][3]-l1)/l2)));
+		System.out.println("R2:"+ Math.toDegrees(w2) + "==" + bw1);
+		System.out.println("R1:"+ Math.toDegrees(w1) + "==" + bw2);
 		Button.waitForAnyPress();
 	}
 }
